@@ -6,15 +6,22 @@ var throttle = require('lodash.throttle');
 /////////////////1///////////////
 
 const STORAGE_KEY = "feedbeak-form-state";
-const formData = {};
+
 const feedbeakForm = document.querySelector('.feedback-form');
+const formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || 
+ {
+ };
 
 feedbeakForm.addEventListener('input', throttle(onFormInput, 500));
 feedbeakForm.addEventListener('submit', throttle(onFormSubmit));
 sddTextToInput();
 function onFormInput (e) {
     formData[e.target.name] = e.target.value;
+
+  
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+
+
 };
 
 
@@ -32,8 +39,9 @@ function onFormSubmit (e) {
          feedbeakForm.email.value = JSON.parse(localStorage.getItem(STORAGE_KEY)).email || '';
          feedbeakForm.message.value = JSON.parse(localStorage.getItem(STORAGE_KEY)).message || '';
     }  
-    else {  feedbeakForm.email.value = '';
-    feedbeakForm.message.value ='';
+    else { 
+    //      feedbeakForm.email.value = '';
+    // feedbeakForm.message.value ='';
 };
 };
        
